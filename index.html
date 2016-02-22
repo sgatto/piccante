@@ -39,17 +39,10 @@ The code is proved to run on up to 16384 MPI processes. Some preliminary scaling
 In its present state, the code could be considered in <em>beta status</em>.<br>
 Copyright 2014, 2015 - Andrea Sgattoni, Luca Fedeli, Stefano Sinigardi</p>
 
-<p>To build it on linux, <code>make</code>, a C++ compiler, <code>boost</code>, <code>MPI</code> and <code>gsl</code> are required, after that a plain <code>make</code> should work (adapt the makefile according to your setup if needed).<br>
+<p>To build it on linux, <code>make</code>, a C++11 compiler, <code>boost</code> and <code>MPI</code> are required, after that a plain <code>make</code> should work (adapt the makefile according to your setup if needed).<br>
 On MacOS X you should use <a href="http://brew.sh/">homebrew</a> to install the same packages and then launch <code>make brew</code>.<br>
-On Windows, you should use the Visual Studio solution to obtain <code>boost</code> as a Nuget package, while you should download <a href="http://sourceforge.net/projects/gnuwin32/files/gsl/1.8/gsl-1.8.exe">GSL for Windows</a> and <a href="https://www.microsoft.com/en-us/download/details.aspx?id=49926">Microsoft MPI (with SDK)</a> before building. After installing GSL you should also create its .lib files with this method:</p>
-
-<pre><code>1) open the VS Command Shell as an administrator
-2) cd "c:\Program Files (x86)\GnuWin32\lib"
-3) lib /def:libgsl.def
-4) lib /def:libgslcblas.def
-</code></pre>
-
-<p><code>piccante</code> should build cleanly after that</p>
+On Windows, you should use the Visual Studio solution to obtain <code>boost</code> as a Nuget package, while you should download <a href="https://www.microsoft.com/en-us/download/details.aspx?id=49926">Microsoft MPI (with SDK)</a> before building.<br>
+<code>piccante</code> should build cleanly after that</p>
 
 <p>A paper that describes the technical features of <code>piccante</code> is under development now, in the meantime if you want to use the code please ask the authors for a ZENODO doi linked to the release you're using.<br>
 A technical paper describing optimizations performed during a Preparatory PRACE can be found <a href="http://www.prace-ri.eu/IMG/pdf/WP209.pdf">here</a> <a href="http://dx.doi.org/10.5281/zenodo.16097"><img src="https://zenodo.org/badge/doi/10.5281/zenodo.16097.svg" alt="DOI"></a>.</p>
