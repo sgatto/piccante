@@ -35,11 +35,13 @@
 
 <p><code>piccante</code> is a massively parallel fully-relativistic electromagnetic 3D particle-in-cell code, released by the authors to the whole laser-plasma community under a GPLv3 license.<br>
 Its strengths are related to flexibility: the user is able to define an arbitrary number of particle species with arbitrary density functions and an arbitrary number of Gaussian laser pulses.<br>
-The code is proved to run on up to 16384 MPI processes. Some preliminary scaling tests verified a very good scalability on up to 4096 MPI tasks.<br>
+The code is proved to scale very well up to 32768 MPI processes.
 In its present state, the code could be considered in <em>beta status</em>.<br>
-Copyright 2014, 2015 - Andrea Sgattoni, Luca Fedeli, Stefano Sinigardi</p>
+Copyright 2014, 2016 - Andrea Sgattoni, Luca Fedeli, Stefano Sinigardi</p>
 
-<p>To build it on linux, <code>make</code>, a C++11 compiler, <code>boost</code> and <code>MPI</code> are required, after that a plain <code>make</code> should work (adapt the makefile according to your setup if needed).<br>
+<p><code>piccante</code> uses code from <a href="http://rapidjson.org/">rapidjson</a> and <a href="http://people.sc.fsu.edu/%7Ejburkardt/cpp_src/sobol/sobol.html">SOBOL</a>. Each source files contain original copyright notice
+<code>piccante</code> make use of functions and classes from the library <a href="http://www.boost.org/">boost</a>
+To build it on linux, <code>make</code>, a C++11 compiler, <code>boost</code> and <code>MPI</code> are required, after that a plain <code>make</code> should work (adapt the makefile according to your setup if needed).<br>
 On MacOS X you should use <a href="http://brew.sh/">homebrew</a> to install the same packages and then launch <code>make brew</code>.<br>
 On Windows, you should use the Visual Studio solution to obtain <code>boost</code> as a Nuget package, while you should download <a href="https://www.microsoft.com/en-us/download/details.aspx?id=49926">Microsoft MPI (with SDK)</a> before building.<br>
 <code>piccante</code> should build cleanly after that</p>
@@ -54,6 +56,10 @@ A technical paper describing optimizations performed during a Preparatory PRACE 
 <a href="http://dx.doi.org/10.5281/zenodo.10587"><img src="https://zenodo.org/badge/doi/10.5281/zenodo.10587.svg" alt="DOI"></a></p>
 
 <p>2) A. Sgattoni, S. Sinigardi, A. Macchi,  High Energy Gain in Three-Dimensional Simulations of Light Sail Acceleration, <a href="http://arxiv.org/pdf/1403.2709.pdf">arXiv:1403.2709</a>, <a href="http://dx.doi.org/10.1063/1.4894092">Appl. Phys. Lett., 105, 084105 (2014)</a></p>
+
+<p>3) L. Fedeli, A. Sgattoni, G. Cantono, D. Garzella, F. Réau, I. Prencipe, M. Passoni, M. Raynaud, M. Květoň, J. Proska, A. Macchi, T. Ceccotti, Electron acceleration by relativistic surface plasmons in laser-grating interaction <a href="http://arxiv.org/abs/1508.02328">arXiv:1508.02328</a>, <a href="http://dx.doi.org/10.1103/PhysRevLett.116.015001">Physical Review Letters 116, 015001 (2016)</a></p>
+
+<p>4) A Sgattoni, L Fedeli, G Cantono, T Ceccotti and A Macchi, High field plasmonics and laser-plasma acceleration in solid targets <a href="http://iopscience.iop.org/article/10.1088/0741-3335/58/1/014004">Plasma Physics and Controlled Fusion 58, 014004 (2015)</a></p>
       </section>
     </div>
 
