@@ -20,7 +20,7 @@
 #ifndef __COMMONS_H__
 #define __COMMONS_H__
 
-#define _ACC_SINGLE_POINTER
+//#undef _ACC_SINGLE_POINTER
 //#define NO_ALLOCATION
 #define _USE_MATH_DEFINES
 //#define USE_HDF5
