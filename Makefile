@@ -4,6 +4,7 @@ MAINFILE = main-piccante.cpp
 MAINFILE_DEV = main-devel.cpp
 
 FILES = grid.cpp \
+	sselib2.cpp \
         sobol.cpp \
         structures.cpp \
         current.cpp \
