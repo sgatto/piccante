@@ -272,7 +272,7 @@ local.properties
 *.config
 *.creator
 *.creator.user
-*.files
+
 
 ###############################################
 # Visual Studio
