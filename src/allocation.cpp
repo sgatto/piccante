@@ -1,5 +1,6 @@
 /* SSE2 utility Library */
-/* written by Viktor K. Decyk, UCLA and Ricardo Fonseca, ISCTE */
+/* from an original written by Viktor K. Decyk, UCLA and Ricardo Fonseca, ISCTE
+modified for PICCANTE by Andrea Sgattoni*/
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -7,10 +8,60 @@
 #include <complex.h>
 #include <xmmintrin.h>
 #include <mm_malloc.h>
-#include "sselib2.h"
+#include "allocation.h"
+
+void PctAllocateDouble(double *pointer, int nsize){
+  int irc;
+  sse_allocateDouble_128(&pointer, nsize, &irc);
+}
+
+void PctReallocateDouble(double *pointer, int newSize, int oldSize){
+  int irc;
+  double *buffPointer = NULL;
+  sse_allocateDouble_128(&buffPointer, newSize, &irc);
+  memcpy((void*)buffPointer, (void*)pointer, oldSize*sizeof(double));
+  sse_free((void *) pointer);
+  pointer = buffPointer;
+}
+
 
 /*--------------------------------------------------------------------*/
-void sse_fallocate(float **s_f, int nsize, int *irc) {
+void sse_allocateDouble_128(double **s_f, int nsize, int *irc) {
+/* allocate aligned float memory on SSE return pointer to C */
+/* size is padded to be a multiple of the alignment length */
+/* local data */
+/* NV = vector length for 64 bit data */
+#define NV             2
+   int ns;
+   void *sptr = NULL;
+   ns = NV*((nsize - 1)/NV + 1);
+   sptr = _mm_malloc(ns*sizeof(double),2*NV);
+   if (sptr==NULL) {
+      printf("_mm_malloc float Error,len=%d\n",ns);
+      *irc = 1;
+   }
+   *s_f = (double *)sptr;
+   return;
+#undef NV
+}
+
+void sse_allocateDouble_256(double **s_f, int nsize, int *irc) {
+#define NV             4
+   int ns;
+   void *sptr = NULL;
+   ns = NV*((nsize - 1)/NV + 1);
+   sptr = _mm_malloc(ns*sizeof(double),8*NV);
+   if (sptr==NULL) {
+      printf("_mm_malloc float Error,len=%d\n",ns);
+      *irc = 1;
+   }
+   *s_f = (double *)sptr;
+   return;
+#undef NV
+}
+
+/*--------------------------------------------------------------------*/
+void sse_allocateFloat_128(float **s_f, int nsize, int *irc) {
 /* allocate aligned float memory on SSE return pointer to C */
 /* size is padded to be a multiple of the alignment length */
 /* local data */
@@ -29,9 +80,24 @@ void sse_fallocate(float **s_f, int nsize, int *irc) {
 #undef NV
 }
 
+void sse_allocateFloat_256(float **s_f, int nsize, int *irc) {
+#define NV             8
+   int ns;
+   void *sptr = NULL;
+   ns = NV*((nsize - 1)/NV + 1);
+   sptr = _mm_malloc(ns*sizeof(float),4*NV);
+   if (sptr==NULL) {
+      printf("_mm_malloc float Error,len=%d\n",ns);
+      *irc = 1;
+   }
+   *s_f = (float *)sptr;
+   return;
+#undef NV
+}
+
 
 /*--------------------------------------------------------------------*/
-void sse_iallocate(int **s_i, int nsize, int *irc) {
+void sse_allocateInt_128(int **s_i, int nsize, int *irc) {
 /* allocate aligned int memory on SSE, return pointer to C */
 /* size is padded to be a multiple of the alignment length */
 /* local data */
@@ -49,9 +115,24 @@ void sse_iallocate(int **s_i, int nsize, int *irc) {
    return;
 #undef NV
 }
+/*--------------------------------------------------------------------*/
+void sse_allocateInt_256(int **s_i, int nsize, int *irc) {
+#define NV             8
+   int ns;
+   void *sptr = NULL;
+   ns = NV*((nsize - 1)/NV + 1);
+   sptr = _mm_malloc(ns*sizeof(int),4*NV);
+   if (sptr==NULL) {
+      printf("_mm_malloc int Error,len=%d\n",ns);
+      *irc = 1;
+   }
+   *s_i = (int *)sptr;
+   return;
+#undef NV
+}
 
 /*--------------------------------------------------------------------*/
-void sse_deallocate(void *s_d) {
+void sse_free(void *s_d) {
 /* deallocate aligned memory on SSE */
    _mm_free(s_d);
    return;
@@ -104,7 +185,7 @@ void csse2iscan2(int *isdata, int nths) {
 /*--------------------------------------------------------------------*/
 void sse_deallocate_(void *sp_d) {
 /* pointer in Fortran should also be nullified */
-   sse_deallocate(sp_d);
+   sse_free(sp_d);
    return;
 }
 

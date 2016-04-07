@@ -57,17 +57,17 @@ void SPECIE::allocate_species()
   if (mygrid->withParticles == NO)
     return;
 #ifndef NO_ALLOCATION
+  allocatedParticleNumber = (int)(Np*1.1);
 #ifdef _ACC_SINGLE_POINTER
-  pData = (double*)malloc((Np*Ncomp)*sizeof(double));
+  pData = (double*)malloc((allocatedParticleNumber*Ncomp)*sizeof(double));
 #else
   val = (double**)malloc(Ncomp*sizeof(double*));
-  int Npart= QUATTRO*((Np - 1)/QUATTRO + 1);
   for (int c = 0; c < Ncomp; c++) {
-    val[c] = (double*)_mm_malloc(Npart*sizeof(double),sizeof(double)*QUATTRO);
+    PctAllocateDouble(val[c],allocatedParticleNumber);
   }
 #endif
 
-  valSize = Np;
+
   allocated = true;
 #endif
 
@@ -93,10 +93,10 @@ void SPECIE::erase()
     exit(11);
   }
 #ifdef _ACC_SINGLE_POINTER
-  memset((void*)pData, 0, (Np*Ncomp)*sizeof(double));
+  memset((void*)pData, 0, (allocatedParticleNumber*Ncomp)*sizeof(double));
 #else
   for (int c = 0; c < Ncomp; c++) {
-    memset((void*)val[c], 0, Np*sizeof(double));
+    memset((void*)val[c], 0, allocatedParticleNumber*sizeof(double));
   }
 #endif
 }
@@ -114,33 +114,25 @@ void SPECIE::reallocate_species()
     return;
 #endif
   }
-  if (Np > valSize) {
-    valSize = Np + allocsize;
+  if (Np > allocatedParticleNumber) {
+    int oldSize=allocatedParticleNumber;
+    allocatedParticleNumber = Np + allocsize;
 #ifdef _ACC_SINGLE_POINTER
-    pData = (double *)realloc((void*)pData, valSize*Ncomp*sizeof(double));
+    pData = (double *)realloc((void*)pData, Ncomp*allocatedParticleNumber*sizeof(double));
 #else
-    void *buffPointer = NULL;
     for (int c = 0; c < Ncomp; c++) {
-      int Npart= QUATTRO*((valSize - 1)/QUATTRO + 1);
-      buffPointer = _mm_malloc(Npart*sizeof(double),sizeof(double)*QUATTRO);
-      memcpy((void*)buffPointer, (void*)val[c], Np*sizeof(double));
-      _mm_free(val[c]);
-      val[c] = (double *)buffPointer;
+      PctReallocateDouble(val[c], allocatedParticleNumber, oldSize);
     }
 #endif
   }
-  else if (Np < (valSize - allocsize)) {
-    valSize = Np + allocsize;
+  else if (Np < (allocatedParticleNumber - allocsize)) {
+    int oldSize=allocatedParticleNumber;
+    allocatedParticleNumber = Np + allocsize;
 #ifdef _ACC_SINGLE_POINTER
-    pData = (double *)realloc((void*)pData, valSize*Ncomp*sizeof(double));
+    pData = (double *)realloc((void*)pData, Ncomp*allocatedParticleNumber*sizeof(double));
 #else
-    void *buffPointer = NULL;
     for (int c = 0; c < Ncomp; c++) {
-      int Npart= QUATTRO*((valSize - 1)/QUATTRO + 1);
-      buffPointer = _mm_malloc(Npart*sizeof(double),sizeof(double)*QUATTRO);
-      memcpy((void*)buffPointer, (void*)val[c], Np*sizeof(double));
-      _mm_free(val[c]);
-      val[c] = (double *)buffPointer;
+      PctReallocateDouble(val[c], allocatedParticleNumber, oldSize);
     }
 #endif
   }

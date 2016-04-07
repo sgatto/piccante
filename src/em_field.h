@@ -26,6 +26,7 @@
 
 #include "commons.h"
 #include "structures.h"
+#include "allocation.h"
 #include "grid.h"
 #include "current.h"
 

@@ -24,6 +24,7 @@
 
 #include <mpi.h>
 #include "commons.h"
+#include "allocation.h"
 #include "grid.h"
 #include "structures.h"
 

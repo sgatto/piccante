@@ -70,3 +70,5 @@ src/structures.cpp
 src/structures.h
 src/utilities.cpp
 src/utilities.h
+src/allocation.cpp
+src/allocation.h

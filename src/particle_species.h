@@ -25,6 +25,7 @@
 #include "commons.h"
 #include "structures.h"
 #include "grid.h"
+#include "allocation.h"
 #include "current.h"
 #include "em_field.h"
 #include "sobol.hpp"
@@ -150,7 +151,7 @@ private:
   bool isQuiet;
   int quietShuffle;
   double dummy;
-  int valSize;
+  int allocatedParticleNumber;
   int particlePerCell;
   int particlePerCellXYZ[3];
   uint64_t lastParticle;
