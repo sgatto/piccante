@@ -37,7 +37,7 @@
 #define _VERY_SMALL_MOMENTUM 1.0e-5
 //#undef _ACC_SINGLE_POINTER
 
-#define QUATTRO 4
+
 class SPECIE {
 public:
   static const int allocsize = 1000;
