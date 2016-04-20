@@ -2,12 +2,7 @@
 /* from an original written by Viktor K. Decyk, UCLA and Ricardo Fonseca, ISCTE
 modified for PICCANTE by Andrea Sgattoni*/
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <complex.h>
-#include <xmmintrin.h>
-#include <mm_malloc.h>
+
 #include "allocation.h"
 
 void PctAllocateDouble(double *pointer, int nsize){

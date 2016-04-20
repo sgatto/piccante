@@ -1103,6 +1103,7 @@ void SPECIE::position_parallel_pbc()
   free(sendr_buffer);
   free(recv_buffer);
 }
+
 void SPECIE::position_obc()
 {
   if (mygrid->withParticles == NO||isFrozen)
@@ -1148,6 +1149,7 @@ void SPECIE::position_obc()
 }
 
 #ifndef DO_VECT
+
 void SPECIE::momenta_advance(EM_FIELD *ebfield)
 {
 
@@ -1161,15 +1163,7 @@ void SPECIE::momenta_advance(EM_FIELD *ebfield)
   }
   double dt, gamma_i;
   int p, c;  // particle_int, component_int
-  int i, i1, j1, k1, i2, j2, k2;
 
-  //int indexMaxQuadraticShape[]={1,4};
-  int hii[3], wii[3];           // half integer index,   whole integer index
-  double hiw[3][3], wiw[3][3];  // half integer weight,  whole integer weight
-  double rr, rh, rr2, rh2;          // local coordinate to integer grid point and to half integer,     local coordinate squared
-  double dvol, xx[3];           // tensor_product,       absolute particle position
-  double E[3], B[3];
-  double u_plus[3], u_minus[3], u_prime[3], tee[3], ess[3], dummy;
 
   dt = mygrid->dt;
 
@@ -1188,6 +1182,16 @@ void SPECIE::momenta_advance(EM_FIELD *ebfield)
   case 3:
     for (p = 0; p < Np; p++)
     {
+      int i, i1, j1, k1, i2, j2, k2;
+
+      //int indexMaxQuadraticShape[]={1,4};
+      int hii[3], wii[3];           // half integer index,   whole integer index
+      double hiw[3][3], wiw[3][3];  // half integer weight,  whole integer weight
+      double rr, rh, rr2, rh2;          // local coordinate to integer grid point and to half integer,     local coordinate squared
+      double dvol, xx[3];           // tensor_product,       absolute particle position
+      double E[3], B[3];
+      double u_plus[3], u_minus[3], u_prime[3], tee[3], ess[3], dummy;
+
       //gamma_i=1./sqrt(1+u0(p)*u0(p)+u1(p)*u1(p)+u2(p)*u2(p));
       for (c = 0; c < 3; c++) {
 #ifdef _ACC_SINGLE_POINTER
@@ -1642,6 +1646,16 @@ void SPECIE::momenta_advance(EM_FIELD *ebfield)
   case 2:
     for (p = 0; p < Np; p++)
     {
+      int i, i1, j1, k1, i2, j2, k2;
+
+      //int indexMaxQuadraticShape[]={1,4};
+      int hii[3], wii[3];           // half integer index,   whole integer index
+      double hiw[3][3], wiw[3][3];  // half integer weight,  whole integer weight
+      double rr, rh, rr2, rh2;          // local coordinate to integer grid point and to half integer,     local coordinate squared
+      double dvol, xx[3];           // tensor_product,       absolute particle position
+      double E[3], B[3];
+      double u_plus[3], u_minus[3], u_prime[3], tee[3], ess[3], dummy;
+
       //gamma_i=1./sqrt(1+u0(p)*u0(p)+u1(p)*u1(p)+u2(p)*u2(p));
       for (c = 0; c < 3; c++)
       {
@@ -1910,21 +1924,19 @@ void SPECIE::momenta_advance(EM_FIELD *ebfield)
     break;
 
   case 1:
-      __m128 v_xmin, v_ymin;
-      __m128i v_nn, v_mm, v_oo;
-      __m128 v_nx, v_my, v_oz, v_it;
-      __m128 v_dxp, v_dyp, v_d2x, v_d2y;
-      __m128 v_x, v_y, v_dx, v_dy, v_dxi, v_dyi; //v_vx, v_vy, v_ux, v_uy;
-      __m128 v_ux, v_uy;
-      __m128 v_a, v_05, v_025, v_075, v_1;
-      __m128 v_wx0, v_wx1, v_wx2;
-      __m128 v_wy0, v_wy1, v_wy2;
-      __m128 v_w00, v_w01, v_w02;
-      __m128 v_w10, v_w11, v_w12;
-      __m128 v_w20, v_w21, v_w22;
 
     for (p = 0; p < Np; p++)
     {
+      int i, i1, j1, k1, i2, j2, k2;
+
+      //int indexMaxQuadraticShape[]={1,4};
+      int hii[3], wii[3];           // half integer index,   whole integer index
+      double hiw[3][3], wiw[3][3];  // half integer weight,  whole integer weight
+      double rr, rh, rr2, rh2;          // local coordinate to integer grid point and to half integer,     local coordinate squared
+      double dvol, xx[3];           // tensor_product,       absolute particle position
+      double E[3], B[3];
+      double u_plus[3], u_minus[3], u_prime[3], tee[3], ess[3], dummy;
+
       //gamma_i=1./sqrt(1+u0(p)*u0(p)+u1(p)*u1(p)+u2(p)*u2(p));
 
 #ifdef _ACC_SINGLE_POINTER
