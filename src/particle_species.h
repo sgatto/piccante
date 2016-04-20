@@ -29,6 +29,8 @@
 #include "current.h"
 #include "em_field.h"
 #include "sobol.hpp"
+//#include <cilk/cilk.h>
+//#include <cilk/reducer_opadd.h> //needs to be included to use the addition reducer
 
 #if defined(USE_BOOST)
 #include <boost/math/distributions/normal.hpp>
