@@ -37,7 +37,7 @@
 #endif
 
 #define _VERY_SMALL_MOMENTUM 1.0e-5
-//#undef _ACC_SINGLE_POINTER
+#undef _ACC_SINGLE_POINTER
 
 
 class SPECIE {

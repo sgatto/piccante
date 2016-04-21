@@ -63,7 +63,11 @@ void SPECIE::allocate_species()
 #else
   val = (double**)malloc(Ncomp*sizeof(double*));
   for (int c = 0; c < Ncomp; c++) {
+#ifdef _ALIGNED_PARTICLE_MEM_ALLOCATION
     PctAllocateDouble(val[c],allocatedParticleNumber);
+#else
+    val[c] = (double*)malloc((allocatedParticleNumber)*sizeof(double));
+#endif
   }
 #endif
 
@@ -121,7 +125,11 @@ void SPECIE::reallocate_species()
     pData = (double *)realloc((void*)pData, Ncomp*allocatedParticleNumber*sizeof(double));
 #else
     for (int c = 0; c < Ncomp; c++) {
+#ifdef _ALIGNED_PARTICLE_MEM_ALLOCATION
       PctReallocateDouble(val[c], allocatedParticleNumber, oldSize);
+#else
+      val[c] = (double *)realloc((void*)val[c], allocatedParticleNumber*sizeof(double));
+#endif
     }
 #endif
   }
@@ -132,7 +140,11 @@ void SPECIE::reallocate_species()
     pData = (double *)realloc((void*)pData, Ncomp*allocatedParticleNumber*sizeof(double));
 #else
     for (int c = 0; c < Ncomp; c++) {
+#ifdef _ALIGNED_PARTICLE_MEM_ALLOCATION
       PctReallocateDouble(val[c], allocatedParticleNumber, oldSize);
+#else
+      val[c] = (double *)realloc((void*)val[c], allocatedParticleNumber*sizeof(double));
+#endif
     }
 #endif
   }

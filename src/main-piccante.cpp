@@ -92,6 +92,7 @@ int main(int narg, char **args)
   jsonParser::setDumpControl(root, &grid);
   grid.visualDiag();
 
+
   //********************************************END GRID DEFINITION********************************************************
   //******************** BEGIN TO READ OF user defined INPUT - PARAMETERS ****************************************
   int myIntVariable = 0;
@@ -105,6 +106,7 @@ int main(int narg, char **args)
 
 
   //********************  END READ OF "SPECIAL" (user defined) INPUT - PARAMETERS  ****************************************
+
 
   //*******************************************BEGIN SPECIES DEFINITION*********************************************************
 
@@ -120,6 +122,10 @@ int main(int narg, char **args)
     std::cout << "Total particle number: " << totPartNum << std::endl;
   }
 
+  /*
+  MPI_Finalize();
+  exit(0);
+*/
   //*******************************************END SPECIES DEFINITION***********************************************************
   //*******************************************BEGIN FIELD DEFINITION*********************************************************
   myfield.allocate(&grid);
